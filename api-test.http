@@ -1,0 +1,30 @@
+### POST Request - Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "john.doe@gmail.com",
+  "password": "fda098"
+}
+
+> {%
+    client.global.set("JWT", response.body.token);
+%}
+### GET User Details
+GET http://localhost:8080/api/auth/me
+Cookie: JWT={{JWT}}
+Accept: application/json
+
+### GET Auth Logout
+GET http://localhost:8080/api/auth/logout
+Cookie: JWT={{JWT}}
+Accept: application/json
+
+### GET SALES Request - JWT Cookie
+GET http://localhost:8080/api/sales
+Cookie: JWT={{JWT}}
+Accept: application/json
+
+### GET SALES Request - localstorage
+GET http://localhost:8080/api/sales
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiam9obi5kb2VAZ21haWwuY29tIiwiZXhwIjoxNzU2NjY3NjY1LCJpYXQiOjE3NTY1ODEyNjUsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.T9V-NnZVlt1fJI862FUwN-NJcY5L-ZD2cHb-rOze5tg
