@@ -16,11 +16,6 @@ public class User {
     private long userId;
 
     /**
-     * Nom d'utilisateur (login)
-     */
-    private String username;
-
-    /**
      * Prénom de l'utilisateur
      */
     private String firstName;
@@ -81,20 +76,6 @@ public class User {
      */
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    /**
-     * @return le nom d'utilisateur
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username définit le nom d'utilisateur
-     */
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**
@@ -252,14 +233,12 @@ public class User {
     public UserDto toDTO() {
         UserDto dto = new UserDto();
         dto.setUserId(this.userId);
-        dto.setUsername(this.username);
         dto.setFirstName(this.firstName);
         dto.setLastName(this.lastName);
         dto.setUserImg(this.userImg);
         dto.setEmail(this.email);
         dto.setPhone(this.phone);
         dto.setCredit(this.credit);
-        dto.setAdmin(this.isAdmin);
         dto.setCreateAt(this.createAt);
 
         return dto;
