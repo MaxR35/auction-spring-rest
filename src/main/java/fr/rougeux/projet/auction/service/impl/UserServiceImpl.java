@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findByEmail(String email) {
         try {
-            UserDto user = userDao.getUserByEmail(email).toDTO();
+            UserDto user = userDao.readUserByEmail(email).toDTO();
             LOG.info("User found: {}", user);
 
             return user;

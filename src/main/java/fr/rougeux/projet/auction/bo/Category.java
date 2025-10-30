@@ -28,7 +28,7 @@ public class Category {
     /**
      * @param categorieId définit l'identifiant unique de la catégorie
      */
-    public void setCategorieId(long categorieId) {
+    public void setCategoryId(long categorieId) {
         this.categoryId = categorieId;
     }
 

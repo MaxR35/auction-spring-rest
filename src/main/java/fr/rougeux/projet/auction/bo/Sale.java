@@ -159,6 +159,7 @@ public class Sale {
                     .map(Bid::toDTO)
                     .toList());
         }
+
         return dto;
     }
 }
