@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DataAccessException en cas d'erreur d'accès à la base de données
      */
     @Override
-    public User getUserByEmail(String email) {
+    public User readUserByEmail(String email) {
         String query = """
                 SELECT u.user_id, u.last_name, u.first_name, u.email, u.user_img, u.phone, u.credit
                 FROM USERS u
