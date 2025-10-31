@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
  * notamment la recherche et la gestion des données utilisateur.
  * Elle agit comme une couche intermédiaire entre les contrôleurs et la couche d'accès aux données.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findByEmail(String email) {
         try {
-            UserDto user = userDao.readUserByEmail(email).toDTO();
+            UserDto user = userDao.readByEmail(email).toDTO();
             LOG.info("User found: {}", user);
 
             return user;

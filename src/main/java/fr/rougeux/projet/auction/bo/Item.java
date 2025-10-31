@@ -24,6 +24,26 @@ public class Item {
     private Category category;
 
     // =========================
+    // Constructors
+    // =========================
+
+    /** Constructeur par défaut */
+    public Item() {}
+
+    /**
+     * Constructeur de copie pour cloner un article.
+     *
+     * @param source instance de Item à cloner
+     */
+    public Item(Item source) {
+        this.itemId = source.itemId;
+        this.itemName = source.itemName;
+        this.itemDesc = source.itemDesc;
+        this.itemImg = source.itemImg;
+        this.category = (source.category != null) ? new Category(source.category) : null;
+    }
+
+    // =========================
     // Getters et Setters
     // =========================
 

@@ -23,6 +23,9 @@ import java.util.List;
  *     <li>Lecture d’une vente et de ses enchères</li>
  *     <li>Placement d’une enchère avec gestion du crédit utilisateur</li>
  * </ul>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Service
 public class SaleServiceImpl implements SaleService {

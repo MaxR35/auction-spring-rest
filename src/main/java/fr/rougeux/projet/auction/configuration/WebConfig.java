@@ -22,6 +22,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  * <p><strong>Exemple :</strong> Si ton frontend tourne sur <code><a href="http://localhost:4200">...</a></code>,
  * cette configuration permet à Angular d’appeler l’API sans erreur CORS.</p>
+ *
+ * @see <a href="https://spring.io/guides/gs/rest-service-cors/">Spring CORS Guide</a>
  */
 @Configuration
 public class WebConfig {

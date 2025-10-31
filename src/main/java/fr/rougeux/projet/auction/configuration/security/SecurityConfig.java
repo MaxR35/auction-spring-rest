@@ -40,6 +40,9 @@ import javax.sql.DataSource;
  * <p>
  * Le but est d’assurer la protection des endpoints de l’API en fonction du rôle de l’utilisateur
  * tout en maintenant une configuration compatible avec une architecture front-end séparée.
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Configuration
 public class SecurityConfig {
@@ -106,7 +109,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/auth/me").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/auth/logout").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/sales/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/api/sales/**").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/bid/place").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/categories").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/img/**").permitAll()

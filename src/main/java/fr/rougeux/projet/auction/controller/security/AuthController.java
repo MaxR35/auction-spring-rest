@@ -30,6 +30,9 @@ import java.util.List;
  *     <li>Le rafraîchissement du token</li>
  * </ul>
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @RestController
 @RequestMapping("/api/auth")

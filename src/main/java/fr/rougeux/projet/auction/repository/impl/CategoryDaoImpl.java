@@ -14,6 +14,9 @@ import java.util.List;
  * Utilise un {@link NamedParameterJdbcTemplate} pour exécuter les requêtes SQL avec paramètres nommés
  * et mappe automatiquement les résultats vers des objets {@link Category}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Repository
 public class CategoryDaoImpl implements CategoryDao {

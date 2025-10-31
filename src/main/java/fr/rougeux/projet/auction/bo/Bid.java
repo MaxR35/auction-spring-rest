@@ -1,6 +1,8 @@
 package fr.rougeux.projet.auction.bo;
 
 import fr.rougeux.projet.auction.dto.bo.BidDto;
+import fr.rougeux.projet.auction.exception.BusinessException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -22,6 +24,29 @@ public class Bid {
 
     /** Utilisateur ayant placé l'enchère */
     private User user;
+
+    // =========================
+    // Constructors
+    // =========================
+
+    /**
+     * Constructeur par défaut
+     */
+    public Bid() {}
+
+    /**
+     * Constructeur de copie pour cloner une enchère.
+     *
+     * @param source instance de Bid à cloner
+     */
+    public Bid(Bid source) {
+        this.bidId = source.bidId;
+        this.bidTime = source.bidTime;
+        this.bidAmount = source.bidAmount;
+
+        this.sale = (source.sale != null) ? new Sale(source.sale) : null;
+        this.user = (source.user != null) ? new User(source.user) : null;
+    }
 
     // =========================
     // Getters et Setters
@@ -72,21 +97,81 @@ public class Bid {
     // =========================
 
     /**
-     * Vérifie si cette enchère est supérieure à un montant donné.
-     * @param amount montant à comparer
-     * @return vrai si bidAmount est supérieur à amount
+     * Vérifie que l'enchère et l'utilisateur associés ne sont pas null.
+     *
+     * @throws BusinessException si l'enchère ou l'utilisateur est null
      */
-    public boolean isHigherThan(int amount) {
-        return bidAmount > amount;
+    public void checkNotNull() {
+        if(this.sale == null)
+            throw new BusinessException("bid.sale.undefined");
+        if(this.user == null)
+            throw new BusinessException("bid.user.undefined");
     }
 
     /**
-     * Vérifie si cette enchère est la plus élevée pour la vente.
-     * @return vrai si bidAmount correspond au montant actuel le plus élevé
+     * Vérifie que le montant de l'enchère est supérieur au prix courant de la vente.
+     *
+     * @throws BusinessException si l'enchère est inférieure ou égale au prix actuel
      */
-    public boolean isHighestBid() {
-        if (sale == null || sale.getBids() == null) return false;
-        return bidAmount == sale.getCurrentPrice();
+    public void checkHigherBid() {
+        int currentPrice = this.sale.getCurrentPrice();
+        if(this.bidAmount <= currentPrice) {
+            throw new BusinessException("bid.amount.tooLow");
+        }
+    }
+
+    /**
+     * Vérifie que l'utilisateur qui place l'enchère n'est pas le vendeur de l'objet.
+     *
+     * @throws BusinessException si l'utilisateur est le vendeur
+     */
+    public void checkUserNotSeller() {
+        if(this.sale.getSeller().getUserId() == this.user.getUserId()) {
+            throw new BusinessException("bid.user.isSeller");
+        }
+    }
+
+    /**
+     * Vérifie que l'utilisateur a suffisamment de crédits pour placer l'enchère.
+     * Si l'utilisateur a déjà une enchère sur cette vente, seule la différence est vérifiée.
+     *
+     * @throws BusinessException si l'utilisateur n'a pas assez de crédits
+     */
+    public void checkUserCanBid() {
+        int previousBid = 0;
+        if (sale.getBids() != null) {
+            previousBid = sale.getBids().stream()
+                    .filter(b -> b.getUser().getUserId() == this.user.getUserId())
+                    .mapToInt(Bid::getBidAmount)
+                    .max()
+                    .orElse(0);
+        }
+
+        int diff = bidAmount - previousBid;
+        this.user.canBid(diff);
+    }
+
+    /**
+     * Vérifie que la vente est encore en cours.
+     *
+     * @throws BusinessException si la vente est terminée
+     */
+    public void checkSaleStatus() {
+        if(!this.sale.isOngoing()) {
+            throw new BusinessException("bid.sale.over");
+        }
+    }
+
+    /**
+     * Valide toutes les règles métiers pour placer une enchère.
+     *
+     * @throws BusinessException si une des validations échoue
+     */
+    public void validateBid() {
+        checkNotNull();
+        // checkSaleStatus(); // TODO: à réactiver lorsque faker regénérera des ventes en cours
+        checkHigherBid();
+        checkUserCanBid();
     }
 
     // =========================
