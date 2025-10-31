@@ -34,6 +34,9 @@ import org.springframework.stereotype.Service;
  *
  * String token = jwtUtils.generateToken(userDetails);
  * }</pre>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Service
 public class JwtUtils {

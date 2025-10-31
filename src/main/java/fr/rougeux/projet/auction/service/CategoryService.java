@@ -10,6 +10,9 @@ import java.util.List;
  * Définit le contrat pour la récupération des catégories et la conversion des entités
  * en {@link CategoryDto} pour l’envoi vers la couche de présentation.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface CategoryService {
 

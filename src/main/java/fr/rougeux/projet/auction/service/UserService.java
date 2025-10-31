@@ -9,6 +9,9 @@ import fr.rougeux.projet.auction.dto.bo.UserDto;
  * à partir de leur adresse email. Les implémentations doivent gérer
  * la conversion des entités {@link fr.rougeux.projet.auction.bo.User} en {@link UserDto}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface UserService {
 

@@ -13,6 +13,24 @@ public class Category {
 
     /** Nom ou libellé de la catégorie */
     private String label;
+    // =========================
+    // Constructors
+    // =========================
+
+    /**
+     * Constructeur par défaut.
+     */
+    public Category() {}
+
+    /**
+     * Constructeur de copie pour cloner une catégorie.
+     *
+     * @param source instance de Category à cloner
+     */
+    public Category(Category source) {
+        this.categoryId = source.categoryId;
+        this.label = source.label;
+    }
 
     // =========================
     // Getters et Setters

@@ -3,6 +3,7 @@ package fr.rougeux.projet.auction.bo;
 import fr.rougeux.projet.auction.dto.bo.SaleDto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,29 +12,77 @@ import java.util.List;
  */
 public class Sale {
 
-    /** Identifiant unique de la vente */
+    /**
+     * Identifiant unique de la vente
+     */
     private long saleId;
 
-    /** Date et heure de début de la vente */
+    /**
+     * Date et heure de début de la vente
+     */
     private LocalDateTime startingDate;
 
-    /** Date et heure de fin de la vente */
+    /**
+     * Date et heure de fin de la vente
+     */
     private LocalDateTime endingDate;
 
-    /** Prix de départ de la vente */
+    /**
+     * Prix de départ de la vente
+     */
     private int startingPrice;
 
-    /** Prix actuel ou prix final de la vente */
+    /**
+     * Prix actuel ou prix final de la vente
+     */
     private int salePrice;
 
-    /** Vendeur de l'objet */
+    /**
+     * Vendeur de l'objet
+     */
     private User seller;
 
-    /** Objet mis en vente */
+    /**
+     * Objet mis en vente
+     */
     private Item item;
 
-    /** Liste des enchères associées */
+    /**
+     * Liste des enchères associées
+     */
     private List<Bid> bids;
+
+    // =========================
+    // Constructors
+    // =========================
+
+    /**
+     * Constructeur par défaut
+     */
+    public Sale() {
+    }
+
+    /**
+     * Constructeur de copie pour cloner une vente
+     *
+     * @param source instance de Sale à cloner
+     */
+    public Sale(Sale source) {
+        this.saleId = source.saleId;
+        this.startingDate = source.startingDate;
+        this.endingDate = source.endingDate;
+        this.startingPrice = source.startingPrice;
+        this.salePrice = source.salePrice;
+
+        this.seller = (source.seller != null) ? new User(source.seller) : null;
+        this.item = (source.item != null) ? new Item(source.item) : null;
+        if (source.bids != null) {
+            this.bids = new ArrayList<>();
+            for (Bid bid : source.bids) {
+                this.bids.add(new Bid(bid));
+            }
+        }
+    }
 
     // =========================
     // Getters et Setters
@@ -109,6 +158,7 @@ public class Sale {
 
     /**
      * Vérifie si la vente est toujours en cours.
+     *
      * @return vrai si la date de fin est après maintenant
      */
     public boolean isOngoing() {
@@ -117,6 +167,7 @@ public class Sale {
 
     /**
      * Retourne le statut de la vente.
+     *
      * @return "ONGOING" si en cours, "OVER" sinon
      */
     public String getStatus() {
@@ -145,6 +196,7 @@ public class Sale {
 
     /**
      * Convertit ce BO en SaleDto pour transfert vers le controller ou l'API.
+     *
      * @return SaleDto correspondant à ce BO
      */
     public SaleDto toDTO() {

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * Ce {@link RestControllerAdvice} intercepte les exceptions levées dans tous les controllers
  * et renvoie une réponse HTTP appropriée avec un message clair.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

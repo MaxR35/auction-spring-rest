@@ -8,13 +8,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestSale {
 
+    /**
+     * Vérifie que la méthode getCurrentPrice retourne bien le prix de départ
+     * lorsqu'il n'y a pas de prix de vente ni d'enchères.
+     */
     @Test
-    void testCurrentPrice_noSalePriceNoBids() {
+    void testCurrentPrice_NoSalePriceNoBids() {
         Sale sale = new Sale();
         sale.setStartingPrice(50);
 
         assertEquals(50, sale.getCurrentPrice());
     }
+    /**
+     * Vérifie que la méthode getCurrentPrice retourne bien le prix de vente
+     * lorsqu'il n'y a pas d'enchères.
+     */
     @Test
     void testCurrentPrice_SalePriceNoBids() {
         Sale sale = new Sale();
@@ -23,6 +31,10 @@ class TestSale {
 
         assertEquals(100, sale.getCurrentPrice());
     }
+    /**
+     * Vérifie que la méthode getCurrentPrice retourne bien le montant de l'enchère
+     * la plus haute enchère lorsque la liste des enchères est définie.
+     */
     @Test
     void testCurrentPrice_Bids() {
         Bid bid1 = new Bid();

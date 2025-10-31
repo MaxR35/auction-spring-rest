@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
  * en utilisant JDBC avec des requêtes SQL natives. Elle utilise {@link NamedParameterJdbcTemplate}
  * pour faciliter l'exécution de requêtes paramétrées et prévenir les injections SQL.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -69,7 +72,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DataAccessException en cas d'erreur d'accès à la base de données
      */
     @Override
-    public User readUserByEmail(String email) {
+    public User readByEmail(String email) {
         String query = """
                 SELECT u.user_id, u.last_name, u.first_name, u.email, u.user_img, u.phone, u.credit
                 FROM USERS u
@@ -80,5 +83,26 @@ public class UserDaoImpl implements UserDao {
         params.addValue("email", email);
 
         return jdbc.queryForObject(query, params, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    @Override
+    public void update(User user) {
+        String query = """
+                UPDATE USERS
+                SET last_name = :lastName, first_name = :firstName, email = :email,
+                    user_img = :userImg, phone = :phone, credit = :credit
+                WHERE user_id = :userId
+                """;
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("lastName", user.getLastName());
+        params.addValue("firstName", user.getFirstName());
+        params.addValue("email", user.getEmail());
+        params.addValue("userImg", user.getUserImg());
+        params.addValue("phone", user.getPhone());
+        params.addValue("credit", user.getCredit());
+        params.addValue("userId", user.getUserId());
+
+        jdbc.update(query, params);
     }
 }

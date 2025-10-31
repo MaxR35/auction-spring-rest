@@ -10,6 +10,9 @@ import fr.rougeux.projet.auction.bo.User;
  * Les implémentations doivent gérer l'accès aux tables utilisateurs et le mapping
  * des résultats SQL vers l'entité {@link User}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface UserDao {
 
@@ -23,5 +26,6 @@ public interface UserDao {
      * @param email l'adresse email de l'utilisateur
      * @return l'entité {@link User} correspondant à l'email fourni
      */
-    User readUserByEmail(String email);
+    User readByEmail(String email);
+    void update(User user);
 }
