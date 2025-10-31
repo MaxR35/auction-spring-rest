@@ -86,7 +86,7 @@ public class Bid {
      */
     public boolean isHighestBid() {
         if (sale == null || sale.getBids() == null) return false;
-        return bidAmount == sale.getCurrentBid();
+        return bidAmount == sale.getCurrentPrice();
     }
 
     // =========================
