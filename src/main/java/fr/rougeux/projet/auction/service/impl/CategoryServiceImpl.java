@@ -21,6 +21,9 @@ import java.util.List;
  * </ul>
  * Cette classe utilise un {@link CategoryDao} pour accéder aux données dans la base.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {

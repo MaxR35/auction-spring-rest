@@ -17,6 +17,9 @@ import java.util.List;
  * <p>
  * Toutes les requêtes nécessitent que l'utilisateur ait le rôle <code>USER</code>.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @RestController
 @RequestMapping("api/categories")

@@ -11,6 +11,9 @@ import java.util.List;
  * Les implémentations doivent gérer l'accès aux tables SALES, ITEMS, USERS et CATEGORIES,
  * ainsi que le mapping des résultats SQL vers l'entité {@link Sale}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface SaleDao {
 

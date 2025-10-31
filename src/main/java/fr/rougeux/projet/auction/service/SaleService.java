@@ -11,6 +11,9 @@ import java.util.List;
  * relatives à une vente ou à un utilisateur. Les implémentations doivent fournir
  * la conversion des entités {@link fr.rougeux.projet.auction.bo.Sale} en {@link SaleDto}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface SaleService {
 

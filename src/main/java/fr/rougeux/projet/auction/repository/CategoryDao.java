@@ -11,6 +11,9 @@ import java.util.List;
  * Les implémentations doivent gérer l'accès à la table CATEGORIES et le mapping des résultats SQL
  * vers l'objet {@link Category}.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 public interface CategoryDao {
 

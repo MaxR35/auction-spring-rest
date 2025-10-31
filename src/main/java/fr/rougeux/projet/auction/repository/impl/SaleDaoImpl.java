@@ -21,6 +21,9 @@ import java.util.List;
  * Elle mappe également les relations {@link User} (seller),
  * {@link Item} et {@link Category} si nécessaire.
  * </p>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @Repository
 public class SaleDaoImpl implements SaleDao {

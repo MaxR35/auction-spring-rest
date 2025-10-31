@@ -29,6 +29,9 @@ import java.util.List;
  *     <li><b>GET /api/sales/{id}</b> — Récupère les détails d’une vente</li>
  *     <li><b>POST /api/sales/bid</b> — Envoie une enchère sur une vente</li>
  * </ul>
+ *
+ * @author Rougeux Max
+ * @version 1.0
  */
 @RestController
 @RequestMapping("/api/sales")
