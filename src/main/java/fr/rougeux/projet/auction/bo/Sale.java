@@ -124,15 +124,19 @@ public class Sale {
     }
 
     /**
-     * Retourne l'enchère la plus élevée.
-     * @return montant de la meilleure enchère, ou 0 si aucune
+     * Retourne le prix actuel à afficher :
+     * - Si salePrice est défini (> 0), c’est le prix actuel (ou final)
+     * - Sinon, c’est le prix de départ
      */
-    public int getCurrentBid() {
-        if (bids == null || bids.isEmpty()) return this.startingPrice;
-        return bids.stream()
-                .mapToInt(Bid::getBidAmount)
-                .max()
-                .orElse(0);
+    public int getCurrentPrice() {
+        if (bids != null && !bids.isEmpty()) {
+            return bids.stream()
+                    .mapToInt(Bid::getBidAmount)
+                    .max()
+                    .orElse(startingPrice);
+        }
+
+        return (salePrice > 0) ? salePrice : startingPrice;
     }
 
     // =========================
@@ -149,9 +153,8 @@ public class Sale {
         dto.setStartingDate(this.startingDate);
         dto.setEndingDate(this.endingDate);
         dto.setStartingPrice(this.startingPrice);
-        dto.setSalePrice(this.salePrice);
+        dto.setSalePrice(this.getCurrentPrice());
         dto.setStatus(this.getStatus());
-        dto.setCurrentBid(this.getCurrentBid());
         dto.setSeller(this.seller != null ? this.seller.toDTO() : null);
         dto.setItem(this.item != null ? this.item.toDTO() : null);
         if (this.bids != null) {
