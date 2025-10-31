@@ -59,13 +59,16 @@ public class SaleDaoImpl implements SaleDao {
     public List<Sale> readAll() {
         String query = """
                 SELECT s.sale_id, s.starting_date, s.ending_date, s.starting_price,
+                       MAX(b.bid_amount) AS sale_price,
                        u.user_id, u.last_name, u.first_name, u.user_img,
                        i.item_id, i.item_name, i.item_img, i.item_desc,
                        c.category_id, c.label
                 FROM SALES s
+                LEFT OUTER JOIN BIDS b ON s.sale_id = b.sale_id
                 LEFT OUTER JOIN USERS u ON s.seller_id = u.user_id
                 LEFT OUTER JOIN ITEMS i ON s.item_id = i.item_id
                 LEFT OUTER JOIN CATEGORIES c ON i.category_id = c.category_id
+                GROUP BY s.sale_id, s.starting_date, s.ending_date, s.starting_price, u.user_id, u.last_name, u.first_name, u.user_img, i.item_id, i.item_name, i.item_img, i.item_desc, c.category_id, c.label
                 """;
 
         return jdbc.query(query, new SaleRowMapper(true));
@@ -84,10 +87,10 @@ public class SaleDaoImpl implements SaleDao {
     @Override
     public Sale readById(long saleId) {
         String query = """
-                SELECT s.sale_id, s.starting_date, s.ending_date, s.starting_price,
-                        u.user_id, u.last_name, u.first_name, u.user_img,
-                        i.item_id, i.item_name, i.item_img, i.item_desc,
-                        c.category_id, c.label
+                SELECT s.sale_id, s.starting_date, s.ending_date, s.starting_price, s.sale_price,
+                       u.user_id, u.last_name, u.first_name, u.user_img,
+                       i.item_id, i.item_name, i.item_img, i.item_desc,
+                       c.category_id, c.label
                  FROM SALES s
                  LEFT OUTER JOIN USERS u ON s.seller_id = u.user_id
                  LEFT OUTER JOIN ITEMS i ON s.item_id = i.item_id
@@ -151,6 +154,7 @@ public class SaleDaoImpl implements SaleDao {
             sale.setStartingDate(rs.getTimestamp("starting_date").toLocalDateTime());
             sale.setEndingDate(rs.getTimestamp("ending_date").toLocalDateTime());
             sale.setStartingPrice(rs.getInt("starting_price"));
+            sale.setSalePrice(rs.getInt("sale_price"));
 
             // Seller Mapping
             if(withSeller) {

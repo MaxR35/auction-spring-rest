@@ -73,5 +73,4 @@ public class SaleController {
     public SaleDto getVenteById(@PathVariable long id) {
         return saleService.findById(id);
     }
-
 }

@@ -3,6 +3,7 @@ package fr.rougeux.projet.auction.service.impl;
 import fr.rougeux.projet.auction.bo.Sale;
 import fr.rougeux.projet.auction.dto.bo.SaleDto;
 import fr.rougeux.projet.auction.exception.NotFoundException;
+import fr.rougeux.projet.auction.repository.BidDao;
 import fr.rougeux.projet.auction.repository.SaleDao;
 import fr.rougeux.projet.auction.service.SaleService;
 import org.slf4j.Logger;
@@ -28,13 +29,15 @@ public class SaleServiceImpl implements SaleService {
 
     private static final Logger LOG = LoggerFactory.getLogger(SaleServiceImpl.class);
     private final SaleDao saleDao;
+    private final BidDao bidDao;
 
     /**
      * Constructeur du service de vente.
      *
      * @param saleDao le DAO utilisé pour accéder aux ventes en base de données
      */
-    public SaleServiceImpl(SaleDao saleDao) {
+    public SaleServiceImpl(SaleDao saleDao, BidDao bidDao) {
+        this.bidDao = bidDao;
         this.saleDao = saleDao;
     }
 
@@ -67,10 +70,11 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public SaleDto findById(long id) {
         try {
-            SaleDto sale = saleDao.readById(id).toDTO();
+            Sale sale = saleDao.readById(id);
+            sale.setBids(bidDao.readAll(sale.getSaleId()));
             LOG.info("Sale found: {}", sale);
 
-            return sale;
+            return sale.toDTO();
         } catch (EmptyResultDataAccessException e) {
             LOG.error("db.sale.notfound", e);
             throw new NotFoundException("Sale not found.");

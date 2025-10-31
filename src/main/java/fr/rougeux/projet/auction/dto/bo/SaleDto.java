@@ -14,7 +14,6 @@ public class SaleDto {
     private int startingPrice;
     private int salePrice;
     private String status;
-    private int currentBid;
     private UserDto seller;
     private ItemDto item;
     private List<BidDto> bidLst;
@@ -36,9 +35,6 @@ public class SaleDto {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
-    public int getCurrentBid() { return currentBid; }
-    public void setCurrentBid(int currentBid) { this.currentBid = currentBid; }
 
     public UserDto getSeller() { return seller; }
     public void setSeller(UserDto seller) { this.seller = seller; }
